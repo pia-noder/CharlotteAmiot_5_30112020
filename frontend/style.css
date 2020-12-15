@@ -9,7 +9,7 @@ body{
 .masthead {
     height: 100vh;
     min-height: 500px;
-    background-image: url('https://source.unsplash.com/BtbjCFUvBXs/1920x1080');
+    background-image: url('../images/cool-teddy-bear.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -46,10 +46,6 @@ section ul{
 #img-panel img{
     max-width: 100%;
     height: auto;
-};
-.main-heading {
-	font-size: 19px;
-	margin-bottom: 20px;
 }
 .table-cart thead {
     margin-top: 10px;
@@ -66,21 +62,9 @@ section ul{
     padding: 40px 15px 27px;
     vertical-align: middle;
 }
-.table-cart tr td:nth-child(1) {
-    width: 52%;
-}
-.table-cart tr td:nth-child(2) {
-    width: 26%;
-}
-.table-cart tr td:nth-child(3) {
-    width: 13.333%;
-}
-.table-cart tr td:nth-child(4) {
-    width: 8.667%;
-    text-align: right;
-}
+
 .table-cart tr td .img-product {
-    width: 72px;
+    width: 150px;
     float: left;
     margin-left: 8px;
     margin-right: 31px;
@@ -102,30 +86,13 @@ section ul{
     margin-right: 40px;
     color: #989898;
     font-size: 16px;
-    font-family: 'Nunito';
 }
+/*Formulaire*/
 .card-order {
     border: 0;
     border-radius: 1rem;
     box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
     overflow: hidden;
-  }
-  
-  .card-order .card-title {
-    margin-bottom: 2rem;
-    font-weight: 300;
-    font-size: 1.5rem;
-  }
-  
-  .card-order .card-img-left {
-    width: 45%;
-    /* Link to your background image using in the property below! */
-    background: scroll center url('https://source.unsplash.com/WEQbe2jBg40/414x512');
-    background-size: cover;
-  }
-  
-  .card-order .card-body {
-    padding: 2rem;
   }
   
   .form-order {
@@ -142,12 +109,12 @@ section ul{
     transition: all 0.2s;
   }
   
-  .form-label-group {
+  .form-label {
     position: relative;
     margin-bottom: 1rem;
   }
   
-  .form-label-group input {
+  .form-label input {
     height: auto;
     border-radius: 2rem;
   }

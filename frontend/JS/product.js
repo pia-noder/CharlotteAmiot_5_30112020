@@ -103,7 +103,6 @@ function addToCart(optionSelected){
     let cartContent = JSON.parse(localStorage.getItem("cartContent"));
     let nbProduct = document.getElementById("nbproduct");
     nbProduct.innerHTML = cartContent.length;
-    console.log(cartContent.length);
 }
 
 

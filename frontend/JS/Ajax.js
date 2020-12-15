@@ -15,7 +15,7 @@ function ajaxCall(url,callback){
     console.log('request successed')
 }
 ///////////////////////
-function ajaxPost(url,dataSended){
+function ajaxPost(url,InfoSended){
     let promise = new Promise(function(resolve, reject){
         var xhr = new XMLHttpRequest();
         xhr.open('POST',url);
@@ -23,12 +23,11 @@ function ajaxPost(url,dataSended){
         xhr.onload = function(){
             if(this.status === 200){
                 resolve(JSON.parse(this.responseText));
-                console.log("post bien réalisé");
             }else{
                 reject(xhr.status);
             }
-        };
-        xhr.send(JSON.stringify(dataSended));
+        }
+        xhr.send(JSON.stringify(InfoSended));
     });
     return promise;
 }

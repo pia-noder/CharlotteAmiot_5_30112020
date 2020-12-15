@@ -56,7 +56,7 @@ function cartBloc(data){
            input.setAttribute('type','text');
            input.setAttribute('name','quantity');
            input.setAttribute('value','1');
-           input.setAttribute('class','qty');
+           input.setAttribute('class','form-control');
          
 
           let total = document.createElement('td');
@@ -66,11 +66,13 @@ function cartBloc(data){
 
           let btnDelete = document.createElement('btn');
           btnDelete.innerHTML = 'Supprimer';
-          btnDelete.setAttribute('class','btn-danger');
+          btnDelete.setAttribute('class','btn btn-lg btn-primary btn-block text-uppercase');
           row.appendChild(btnDelete);
 
           
-          
+        let cartContent = JSON.parse(localStorage.getItem("cartContent"));
+        let nbProduct = document.getElementById("nbproduct");
+        nbProduct.innerHTML = cartContent.length;
           ///Supprimer produit/////
         }
         
@@ -100,24 +102,24 @@ function cartBloc(data){
     }
     let contact = new infoContact(lastName,firstName,adress,city,email);
 
-    let idProduct = [];
+    let products = [];
     let productCart = JSON.parse(localStorage.getItem("cartContent"));
     for(let i= 0; i< productCart.length; i++){
-      idProduct.push(productCart[i].id);
-      console.log(idProduct);
+      products.push(productCart[i].id);
+      console.log(products);
     }
 
     class infoSend {
-      constructor(contact,idProduct){
+      constructor(contact,products){
         this.contact = contact;
-        this.idProduct = idProduct;
+        this.products = products;
       }
     }
-    let InfoSend = new infoSend(contact,idProduct);
-    console.log(InfoSend);
-    ajaxPost('http://localhost:3000/api/teddies/order', InfoSend).then(function(response){
-      localStorage.setItem('responseAPI',response.orderId);
-    })
+    let InfoSend = new infoSend(contact,products);
+    console.log(JSON.stringify(InfoSend));
+    
+
+    ajaxPost('http://localhost:3000/api/teddies/order', InfoSend);
   }
 
 

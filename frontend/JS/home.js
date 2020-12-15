@@ -39,3 +39,6 @@ function UserImg(data){
        divLegend.appendChild(price);
     }
 }
+let cartContent = JSON.parse(localStorage.getItem("cartContent"));
+    let nbProduct = document.getElementById("nbproduct");
+    nbProduct.innerHTML = cartContent.length;
