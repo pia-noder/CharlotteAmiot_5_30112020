@@ -1,0 +1,156 @@
+
+*{
+    margin:0;
+    padding: 0;
+}
+body{
+    font-size: 1em;
+}
+.masthead {
+    height: 100vh;
+    min-height: 500px;
+    background-image: url('https://source.unsplash.com/BtbjCFUvBXs/1920x1080');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+section{
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin-top:70px;
+}
+
+/*Footer*/
+footer{
+    display: flex;
+    margin-top: 15px;
+}
+
+footer section{
+    display: flex;
+    flex-direction: column;
+}
+section ul{
+    margin-top: 15px;
+    flex-direction: column;
+    list-style: none;
+}
+#product-panel{
+    display: flex;
+    justify-content: space-around;
+}
+#img-panel{
+    width: 45%;
+}
+#img-panel img{
+    max-width: 100%;
+    height: auto;
+};
+.main-heading {
+	font-size: 19px;
+	margin-bottom: 20px;
+}
+.table-cart thead {
+    margin-top: 10px;
+    border-bottom: 1px solid #e5e5e5;
+    margin-bottom: 5px;
+}
+.table-cart thead tr th {
+    padding: 8px 0 18px;
+    color: #484848;
+    font-size: 15px;
+    font-weight: 400;
+}
+.table-cart tr td {
+    padding: 40px 15px 27px;
+    vertical-align: middle;
+}
+.table-cart tr td:nth-child(1) {
+    width: 52%;
+}
+.table-cart tr td:nth-child(2) {
+    width: 26%;
+}
+.table-cart tr td:nth-child(3) {
+    width: 13.333%;
+}
+.table-cart tr td:nth-child(4) {
+    width: 8.667%;
+    text-align: right;
+}
+.table-cart tr td .img-product {
+    width: 72px;
+    float: left;
+    margin-left: 8px;
+    margin-right: 31px;
+    line-height: 63px;
+}
+.table-cart tr td .img-product img {
+	width: 100%;
+}
+.table-cart tr td .name-product {
+    font-size: 15px;
+    color: #484848;
+    padding-top: 8px;
+    line-height: 24px;
+    width: 50%;
+}
+.table-cart tr td .price {
+    text-align: right;
+    line-height: 64px;
+    margin-right: 40px;
+    color: #989898;
+    font-size: 16px;
+    font-family: 'Nunito';
+}
+.card-order {
+    border: 0;
+    border-radius: 1rem;
+    box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+  }
+  
+  .card-order .card-title {
+    margin-bottom: 2rem;
+    font-weight: 300;
+    font-size: 1.5rem;
+  }
+  
+  .card-order .card-img-left {
+    width: 45%;
+    /* Link to your background image using in the property below! */
+    background: scroll center url('https://source.unsplash.com/WEQbe2jBg40/414x512');
+    background-size: cover;
+  }
+  
+  .card-order .card-body {
+    padding: 2rem;
+  }
+  
+  .form-order {
+    width: 50%;
+    text-align: center;
+  }
+  
+  .form-order .btn {
+    font-size: 80%;
+    border-radius: 5rem;
+    letter-spacing: .1rem;
+    font-weight: bold;
+    padding: 1rem;
+    transition: all 0.2s;
+  }
+  
+  .form-label-group {
+    position: relative;
+    margin-bottom: 1rem;
+  }
+  
+  .form-label-group input {
+    height: auto;
+    border-radius: 2rem;
+  }
+  
+
+
