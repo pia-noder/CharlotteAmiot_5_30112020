@@ -20,6 +20,7 @@ function cartBloc(data){
           
           let column = document.createElement('td');
           row.appendChild(column);
+
           let container = document.createElement('div');
           column.appendChild(container);
           container.setAttribute('class','display-flex align-center');
@@ -27,7 +28,6 @@ function cartBloc(data){
           let image = document.createElement('div');
           image.setAttribute('class','img-product');
           container.appendChild(image);
-          console.log(date.imageUrl);
           let img = document.createElement('img');
           
           image.appendChild(img);
@@ -36,6 +36,7 @@ function cartBloc(data){
 
           let color = document.createElement('div');
           container.appendChild(color);
+          color.setAttribute('class','text-align');
           color.innerHTML = value.option;
 
           let price = document.createElement('td');
@@ -77,36 +78,32 @@ function cartBloc(data){
         }
         
     }
-      
-}
-
-//Formulaire de commande///
+      //Formulaire de commande///
   let btnOrder = document.getElementById('btnOrder');
   btnOrder.addEventListener('click',order);
 
   function order(){
-    let lastName = document.getElementById('inputLastName').value;
     let firstName = document.getElementById('inputFirstName').value;
-    let adress = document.getElementById('inputAdress').value;
+    let lastName = document.getElementById('inputLastName').value;
+    let address = document.getElementById('inputAddress').value;
     let city = document.getElementById('inputCity').value;
     let email = document.getElementById('inputEmail').value;
 
     class infoContact {
-      constructor(lastName,firstName, adress, city, email){
-        this.lastName = lastName;
+      constructor(firstName,lastName, address, city, email){
         this.firstName = firstName;
-        this.adress = adress;
+        this.lastName = lastName;
+        this.address = address;
         this.city = city;
         this.email = email;
         }
     }
-    let contact = new infoContact(lastName,firstName,adress,city,email);
+    let contact = new infoContact(firstName,lastName,address,city,email);
 
     let products = [];
     let productCart = JSON.parse(localStorage.getItem("cartContent"));
     for(let i= 0; i< productCart.length; i++){
       products.push(productCart[i].id);
-      console.log(products);
     }
 
     class infoSend {
@@ -115,12 +112,22 @@ function cartBloc(data){
         this.products = products;
       }
     }
-    let InfoSend = new infoSend(contact,products);
-    console.log(JSON.stringify(InfoSend));
-    
 
-    ajaxPost('http://localhost:3000/api/teddies/order', InfoSend);
+    let InfoSend = new infoSend(contact, products);
+
+    ajaxPost('http://localhost:3000/api/teddies/order', InfoSend).then(function(response){
+      localStorage.setItem('confirmationNb',response.orderId);
+      window.location.href('check.html');
+  }).catch(function(err){
+      console.log(err);
+      if(err === 0){ // requete ajax annulée
+          alert("serveur HS");
+      }
+    });
   }
+}
+
+
 
 
       

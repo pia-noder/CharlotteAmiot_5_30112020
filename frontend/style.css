@@ -36,6 +36,7 @@ section ul{
     flex-direction: column;
     list-style: none;
 }
+/*Mise en page product.html*/
 #product-panel{
     display: flex;
     justify-content: space-around;
@@ -47,6 +48,11 @@ section ul{
     max-width: 100%;
     height: auto;
 }
+/*Mises en page cart.html*/
+.main-heading{
+    font-size: 2em;
+    font-weight: bold;
+}
 .table-cart thead {
     margin-top: 10px;
     border-bottom: 1px solid #e5e5e5;
@@ -55,7 +61,7 @@ section ul{
 .table-cart thead tr th {
     padding: 8px 0 18px;
     color: #484848;
-    font-size: 15px;
+    font-size: 1.5em;
     font-weight: 400;
 }
 .table-cart tr td {

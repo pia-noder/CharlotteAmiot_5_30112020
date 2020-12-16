@@ -20,14 +20,16 @@ function ajaxPost(url,InfoSended){
         var xhr = new XMLHttpRequest();
         xhr.open('POST',url);
         xhr.setRequestHeader("Content-Type", "application/json");
-        xhr.onload = function(){
-            if(this.status === 200){
+        xhr.onload = function () {
+            if(this.status === 201){
+
                 resolve(JSON.parse(this.responseText));
+
             }else{
                 reject(xhr.status);
             }
-        }
-        xhr.send(JSON.stringify(InfoSended));
+        };
+       xhr.send(JSON.stringify(InfoSended));
     });
     return promise;
 }
