@@ -36,7 +36,7 @@ function productBloc(data){
     description.innerHTML = data.description;
     info.appendChild(description);
 
-    /////Détails/////
+    /////titre "Détails"/////
     let details = document.createElement('h3');
     details.innerHTML = 'Détails';
     details.setAttribute('class','my-3');
@@ -75,34 +75,40 @@ function productBloc(data){
 ///////Envoyer dans le local Storage/////
 function addToCart(optionSelected){
     let cartContent = JSON.parse(localStorage.getItem("cartContent"));
-
     //Si le local storage est vide créé le tableau qui contiendra les produits
     if(cartContent === null){
          cartContent = [];
     }
     for (let i in cartContent){
         if(cartContent[i].id === id & cartContent[i].option === optionSelected){
-            cartContent[i].quantity + quantity;
-            break;
+            cartContent[i].quantity ++; 
+            break;       
         }
     }
-    //s'il n'y a pas déjà un objet identique dans le tableau alors on créé un nouvel objet
+      //s'il n'y a pas déjà un objet identique dans le tableau alors on créé un nouvel objet
     let product = new infoProduct(id, optionSelected, 1);
-    cartContent.push(product);
-    localStorage.setItem('cartContent',JSON.stringify(cartContent)); 
+    cartContent.push(product); 
+    localStorage.setItem('cartContent',JSON.stringify(cartContent))  
+    
 }
 
 ////////Ajouter au panier/////////// 
-    btn.addEventListener('click', function(){ 
-        const select = document.getElementsByTagName("select");         
-        const optionSelected = select[0].value;
+btn.addEventListener('click', function(){ 
+    const select = document.getElementsByTagName("select");         
+    const optionSelected = select[0].value;///car select est un tableau donc il faut indiquer un emplacement
         
-        addToCart(optionSelected);
-        alert("ajouté au panier");
-    }); 
+    addToCart(optionSelected);
+    alert("ajouté au panier");
+});
+
+////Ajouter nbre d'article dans le panier dans la nav/////////
     let cartContent = JSON.parse(localStorage.getItem("cartContent"));
     let nbProduct = document.getElementById("nbproduct");
-    nbProduct.innerHTML = cartContent.length;
+    if(cartContent === null){
+        nbProduct.innerHTML = 0;
+    }else{
+      nbProduct.innerHTML = cartContent.length;  
+    }
 }
 
 

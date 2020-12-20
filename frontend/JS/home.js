@@ -40,5 +40,11 @@ function UserImg(data){
     }
 }
 let cartContent = JSON.parse(localStorage.getItem("cartContent"));
-    let nbProduct = document.getElementById("nbproduct");
-    nbProduct.innerHTML = cartContent.length;
+ let nbProduct = document.getElementById("nbproduct");
+    if(cartContent === null){
+        nbProduct.innerHTML = 0;
+    }else{
+      nbProduct.innerHTML = cartContent.length;  
+    }
+   
+    

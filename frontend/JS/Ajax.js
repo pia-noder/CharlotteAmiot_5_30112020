@@ -12,26 +12,29 @@ function ajaxCall(url,callback){
             }
         }
     xhr.send();
-    console.log('request successed')
 }
 ///////////////////////
 function ajaxPost(url,InfoSended){
     let promise = new Promise(function(resolve, reject){
         var xhr = new XMLHttpRequest();
-        xhr.open('POST',url);
+        xhr.open('POST',url,true);
         xhr.setRequestHeader("Content-Type", "application/json");
-        xhr.onload = function () {
-            if(this.status === 201){
+        console.log('OK');
 
-                resolve(JSON.parse(this.responseText));
-
-            }else{
-                reject(xhr.status);
+        xhr.onreadystatechange = function () {
+            console.log('vue');
+                if(this.readyState ===XMLHttpRequest.DONE){
+                    console.log(this.readyState);
+                if(this.status === 201){
+                    resolve(JSON.parse(this.response));
+                }else{
+                    reject(xhr.status);
+                } 
             }
+            
         };
        xhr.send(JSON.stringify(InfoSended));
     });
-    return promise;
 }
 
 

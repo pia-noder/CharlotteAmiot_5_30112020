@@ -37,13 +37,14 @@
         </nav>
     </header>   
 
-    <section>
-        <p>Bonjour <span id="name"></span>,
+    <section class="d-flex flex-column">
+        <p class="knowledge">Bonjour <span id="name"></span>,<br>
  
             Merci pour votre commande chez Orinoco, nous espérons qu’elle vous plaira ! 
             Nous vous informerons par e-mail lorsqu'elle sera expédiée</p>
-        <p> Montant : <span id="totalPrice"></span></p>
-        <aside>
+        <aside class="infoDelivery">   
+            <p class="info-heading"> Montant total de votre commande : <span id="totalPrice"></span></p>
+        
             <div id="infoCustomer">
                 <p class="info-heading">Adresse de livraison :</p>
             <span id="adsress"></span>
@@ -92,8 +93,7 @@
 
 
     <script type="text/javascript" src="js/Ajax.js"></script>
-    <script type="text/javascript" src="js/cart.js"></script>
+    <script type="text/javascript" src="js/check.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
 </body>
 </html>
