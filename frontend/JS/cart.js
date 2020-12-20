@@ -41,7 +41,7 @@ function cartBloc(){
 
           let price = document.createElement('td');
           row.appendChild(price)
-          price.innerHTML = date.price;
+          price.innerHTML = date.price/100 + "€";
 
           let quantity = document.createElement('td');
           row.appendChild(quantity);
@@ -58,11 +58,9 @@ function cartBloc(){
           input.setAttribute('name','quantity');
           input.setAttribute('value',value.quantity);
           input.setAttribute('class','form-control');
-          console.log(input.value);
 
           let totalEach = document.createElement('td');
-          totalEach.innerHTML = input.value*date.price;
-          console.log(input.value);
+          totalEach.innerHTML = input.value*date.price/100 + '€';
           row.appendChild(totalEach);
 
           
@@ -81,14 +79,19 @@ function cartBloc(){
                   localStorage.setItem('cartContent',cartC);
                 }
               }
-            totalEach.innerHTML = input.value*date.price;
-
-            ////Les totaux////
-            
+              totalEach.innerHTML = input.value*date.price/100 + '€';
             
             }
           }
-
+          let totalOrder = document.getElementById('totalOrder');
+        for(let i in totalEach){
+          let content = totalEach.innerHTML;
+          deux = parseInt(content);
+          let totalPrice = sum += deux;
+          
+         totalOrder.innerHTML = totalPrice;
+         break;
+        }
 
         let btnDelete = document.createElement('btn');
         btnDelete.innerHTML = 'Supprimer';
@@ -115,6 +118,8 @@ for (let i in cartC){
   let TotalArticle = sum += SToN;
   productQuantity.innerHTML = TotalArticle;
 }
+
+
 
     
       //Formulaire de commande///
