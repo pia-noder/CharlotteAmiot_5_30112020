@@ -98,9 +98,7 @@ for(let i in totalEach){
         for(var i = 0 ; i < inputElts.length; i++){
         let inputEltsValue = inputElts[i].value;
         let sToNQty = parseInt(inputEltsValue);
-        console.log(sToNQty);
         let finalQty = sumForChangementInCartQty += sToNQty;
-        console.log(finalQty);
         let totalQty = document.getElementById('productQuantity');
         totalQty.innerHTML = '';
         totalQty.innerHTML = finalQty;
@@ -109,16 +107,15 @@ for(let i in totalEach){
         
         /////Modifier le prix final/////
         let intermediatePrice = document.getElementsByClassName('intermediatePrice');
-        sumForChangementInCartPrice = 0;
+        let sumForChangementInCartPrice = 0;
         for(var i = 0; 0 < intermediatePrice.length; i++){
           let priceArticle = intermediatePrice[i].innerHTML;
           let sToN = parseInt(priceArticle);
-          let finalPrice = sumForChangementInCart += sToN;
+          console.log(sToN);
+          let finalPrice = sumForChangementInCartPrice += sToN;
           totalOrder.innerHTML = '';
           totalOrder.innerHTML = finalPrice;
         }
-
-
       }
 //////////////////Supprimer totalement un produit/////////////////
         let btnDelete = document.createElement('btn');
@@ -147,11 +144,9 @@ for (let i in cartC){
   let TotalArticle = sum += SToN;
   productQuantity.innerHTML = TotalArticle;
 }
-//le prix total du panier
 
+/////Envoyer les infos sur le prix et qté totale dans le local storage/////
 
-
-    
       //Formulaire de commande///
   let btnOrder = document.getElementById('btnOrder');
   btnOrder.addEventListener('click',order);
@@ -195,6 +190,9 @@ for (let i in cartC){
     
     ajaxPost('http://localhost:3000/api/teddies/order', InfoSend).then(function(response){
       localStorage.setItem('confirmationNb',response.orderId);
+      let TotalPriceElt = document.getElementById('totalOrder');
+      TotalPrice = TotalPriceElt.innerText;
+      localStorage.setItem('TotalPrice',TotalPrice);
       window.location.href = "check.html";
   }).catch(function(err){
       console.log(err);

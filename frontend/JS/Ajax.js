@@ -15,15 +15,12 @@ function ajaxCall(url,callback){
 }
 ///////////////////////
 function ajaxPost(url,InfoSended){
-    let promise = new Promise(function(resolve, reject){
+    return new Promise(function(resolve, reject){
         var xhr = new XMLHttpRequest();
         xhr.open('POST',url,true);
         xhr.setRequestHeader("Content-Type", "application/json");
-        console.log('OK');
-
         xhr.onreadystatechange = function () {
-            console.log('vue');
-                if(this.readyState ===XMLHttpRequest.DONE){
+                if(this.readyState === XMLHttpRequest.DONE){
                     console.log(this.readyState);
                 if(this.status === 201){
                     resolve(JSON.parse(this.response));
