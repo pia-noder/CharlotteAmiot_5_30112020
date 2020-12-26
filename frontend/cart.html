@@ -85,25 +85,31 @@
     <section>
         <div class="card-body">
             <h5 class="card-title text-center">Valider la commande</h5>
-            <form class="form-order">
+            <form class="form-order" id="orderForm">
                 <div class="form-label">
-                    <input type="text" id="inputLastName" class="form-control" placeholder="LastName" required autofocus>
+                    <input type="text" name="inputLastName" id="inputLastName" class="form-control" placeholder="LastName" required autofocus>
+                    <small></small>
                 </div>
                 <div class="form-label">
-                    <input type="text" id="inputFirstName" class="form-control" placeholder="FirstName" required autofocus>
+                    <input type="text" name="inputFirstName" id="inputFirstName" class="form-control" placeholder="FirstName" required autofocus>
+                    <small></small>
                 </div>
                 <div class="form-label">
-                    <input type="text" id="inputAddress" class="form-control" placeholder="Adresse" required autofocus>
+                    <input type="text" name="inputAddress" id="inputAddress" class="form-control" placeholder="Adresse" required autofocus>
+                    <small></small>
                 </div>
                 <div class="form-label">
-                    <input type="text" id="inputCity" class="form-control" placeholder="Ville" required autofocus>
+                    <input type="text" name="inputCity" id="inputCity" class="form-control" placeholder="Ville" required autofocus>
+                    <small></small>
                 </div>
 
                 <div class="form-label">
-                    <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required>
+                    <input type="email" name="inputEmail"  id="inputEmail" class="form-control" placeholder="Email address" required>
+                    <small></small>
                 </div>
+                <button class="btn btn-lg btn-primary btn-block text-uppercase" id="btnOrder" type="submit">Commander</button>
             </form>
-            <button class="btn btn-lg btn-primary btn-block text-uppercase" id="btnOrder" type="submit">Commander</button>
+            
             
           </div>
         </div>

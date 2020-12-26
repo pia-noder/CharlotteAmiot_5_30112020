@@ -65,15 +65,15 @@ function cartBloc(){
       row.appendChild(totalEach);
 
 /////////////////Indiquer le prix total du panier/////////////////          
-let totalOrder = document.getElementById('totalOrder');
-for(let i in totalEach){
-  let content = totalEach.innerHTML;
-  deux = parseInt(content);
-  let totalPrice = sum += deux;
-  
- totalOrder.innerHTML = totalPrice;
- break;
-}
+    let totalOrder = document.getElementById('totalOrder');
+    for(let i in totalEach){
+      let content = totalEach.innerHTML;
+      deux = parseInt(content);
+      let totalPrice = sum += deux;
+      
+    totalOrder.innerHTML = totalPrice;
+    break;
+    }
 
 
 ////changer la quantité d'un prduit + modifier le LS/////
@@ -118,10 +118,27 @@ for(let i in totalEach){
         }
       }
 //////////////////Supprimer totalement un produit/////////////////
-        let btnDelete = document.createElement('btn');
-        btnDelete.innerHTML = 'Supprimer';
-        btnDelete.setAttribute('class','btn btn-lg btn-primary btn-block text-uppercase');
-        row.appendChild(btnDelete);
+        let btnErase = document.createElement('btn');
+        btnErase.innerHTML = 'Supprimer';
+        btnErase.setAttribute('class','btn btn-lg btn-primary btn-block text-uppercase btn-erase');
+        row.appendChild(btnErase);
+
+        let erase = document.getElementsByClassName('btn-erase');
+        console.log(erase);
+        for(let i = 0; i < erase.length; i++){
+          console.log(erase[i]);
+          erase[i].addEventListener('click', function(event){
+          event.target.parentElement.remove();
+          
+          let cartContent = JSON.parse(localStorage.getItem('cartContent'));
+          //Supprimer du local Storage le produit non souhaité///
+          cartContent.splice(i,1);
+          console.log(cartContent);
+          localStorage.removeItem('cartContent');
+          localStorage.setItem('cartContent',JSON.stringify(cartContent)); 
+        })
+        };
+        
 
 ////////////////Indiquer le nombre de produits au niveau de la nav/////////////          
         let cartContent = JSON.parse(localStorage.getItem("cartContent"));
@@ -132,7 +149,7 @@ for(let i in totalEach){
         
     }
 
-
+}
 /////Les totaux au chargement de la page///
 //les quantités
 let cartC = JSON.parse(localStorage.getItem('cartContent'));
@@ -145,63 +162,150 @@ for (let i in cartC){
   productQuantity.innerHTML = TotalArticle;
 }
 
-/////Envoyer les infos sur le prix et qté totale dans le local storage/////
+//////Validation du formulaire////////
+let form = document.querySelector('#orderForm');
 
-      //Formulaire de commande///
-  let btnOrder = document.getElementById('btnOrder');
-  btnOrder.addEventListener('click',order);
+form.inputLastName.addEventListener('change',function(){
+  validLetters(this);
+});
+form.inputFirstName.addEventListener('change',function(){
+  validLetters(this);
+});
+  
+const validLetters = function(inputName){
+  let regExp = /^[A-Za-z]+$/;
 
-  function order(){
-    console.log('click');
+  let testName = regExp.test(inputName.value);
+  let small = inputName.nextElementSibling;
 
-    let firstName = document.getElementById('inputFirstName').value;
-    let lastName = document.getElementById('inputLastName').value;
-    let address = document.getElementById('inputAddress').value;
-    let city = document.getElementById('inputCity').value;
-    let email = document.getElementById('inputEmail').value;
+  if (testName){
+    small.innerHTML = "Saisie Valide";
+    small.classList.remove('text-danger');
+    small.classList.add('text-success');
+    return true;
+  } else {
+    small.innerHTML = "Entrer uniquement des lettres";
+    small.classList.remove('text-success');
+    small.classList.add('text-danger');
+    return false;
+  }
+};
 
-    class infoContact {
-      constructor(firstName,lastName, address, city, email){
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.address = address;
-        this.city = city;
-        this.email = email;
-        }
-    }
-    let contact = new infoContact(firstName,lastName,address,city,email);
-    localStorage.setItem('tableau',JSON.stringify(contact));
+form.inputAddress.addEventListener('change', function(){
+  validAddress(this);
+});
+  
+function validAddress(address){
+  let regExp = /^\d+\s[A-z]+\s[A-z]+/;
 
-    let products = [];
-    let productCart = JSON.parse(localStorage.getItem("cartContent"));
-    for(let i= 0; i< productCart.length; i++){
-      products.push(productCart[i].id);
-    }
-
-    class infoSend {
-      constructor(contact,products){
-        this.contact = contact;
-        this.products = products;
-      }
-    }
-
-    let InfoSend = new infoSend(contact, products);
-
+  let testAddress = regExp.test(address.value);
+  let small = inputAddress.nextElementSibling;
     
-    ajaxPost('http://localhost:3000/api/teddies/order', InfoSend).then(function(response){
-      localStorage.setItem('confirmationNb',response.orderId);
-      let TotalPriceElt = document.getElementById('totalOrder');
-      TotalPrice = TotalPriceElt.innerText;
-      localStorage.setItem('TotalPrice',TotalPrice);
-      window.location.href = "check.html";
-  }).catch(function(err){
-      console.log(err);
-      if(err === 0){ // requete ajax annulée
-          alert("serveur HS");
-      }
-    });
+  if(testAddress){
+    small.innerHTML = 'Adresse valide';
+    small.classList.remove('text-danger');
+    small.classList.add('text-success');
+    return true;
+  } else {
+    small.innerHTML = 'Adresse invalide';
+    small.classList.remove('text-success');
+    small.classList.add('text-danger');
+    return false
   }
 }
+
+form.inputCity.addEventListener('change',function(){
+  validLetters(this);
+});
+
+form.inputEmail.addEventListener('change',function(){
+  validEmail(this);
+});
+
+function validEmail(email){
+              
+  let regExp = /^[a-zA-Z0-9.-_]+[@]{1}[a-zA-Z0-9.-_]+[.]{1}[a-z]{2,10}$/;
+
+  let testEmail = regExp.test(email.value);
+  let small = inputEmail.nextElementSibling;
+
+  if(testEmail){
+    small.innerHTML = "adresse email valide";
+    small.classList.remove('text-danger');
+    small.classList.add('text-succes');
+    return true;
+  } else {
+    small.innerHTML = 'adresse email non valide';
+    small.classList.remove('text-success');
+    small.classList.add('text-danger');
+    return false;
+  }
+}
+  
+  ///////Envoyer la requête POST///////
+let btnOrder = document.getElementById('btnOrder');
+btnOrder.addEventListener('click',order);
+
+function order(e){
+  e.preventDefault();
+  if(validLetters(form.inputFirstName) && validLetters(form.inputLastName) && validLetters(form.inputCity)
+    && validAddress(form.inputAddress) && validEmail(form.inputEmail)){
+
+
+      let firstName = document.getElementById('inputFirstName').value;
+      let lastName = document.getElementById('inputLastName').value;
+      let address = document.getElementById('inputAddress').value;
+      let city = document.getElementById('inputCity').value;
+      let email = document.getElementById('inputEmail').value;
+
+        class infoContact {
+          constructor(firstName,lastName, address, city, email){
+            this.firstName = firstName;
+            this.lastName = lastName;
+            this.address = address;
+            this.city = city;
+            this.email = email;
+            }
+        }
+
+
+        let contact = new infoContact(firstName,lastName,address,city,email);
+        localStorage.setItem('tableau',JSON.stringify(contact));
+
+        let products = [];
+        let productCart = JSON.parse(localStorage.getItem("cartContent"));
+        for(let i= 0; i< productCart.length; i++){
+          products.push(productCart[i].id);
+        }
+
+
+        class infoSend {
+          constructor(contact,products){
+            this.contact = contact;
+            this.products = products;
+          }
+        }
+
+        let InfoSend = new infoSend(contact, products);
+
+
+        ajaxPost('http://localhost:3000/api/teddies/order', InfoSend).then(function(response){
+              localStorage.setItem('confirmationNb',response.orderId);
+              let TotalPriceElt = document.getElementById('totalOrder');
+              TotalPrice = TotalPriceElt.innerText;
+              localStorage.setItem('TotalPrice',TotalPrice);
+              window.location.href = "check.html";
+          }).catch(function(err){
+              console.log(err);
+              if(err === 0){ // requete ajax annulée
+                  alert("serveur HS");
+              }
+            });
+  }
+}
+  
+
+
 
 
 
