@@ -1,5 +1,4 @@
-ajaxCall('http://localhost:3000/api/teddies/',cartBloc);
-
+cartBloc();
 //////Créer la page cart/////
 function cartBloc(){
 
@@ -12,9 +11,9 @@ function cartBloc(){
 
   for (let value of values){
     let id = value.id;
-    ajaxCall('http://localhost:3000/api/teddies/' + id ,recup);
+    ajaxGet('http://localhost:3000/api/teddies/' + id ,recoverDataFromId);
         
-    function recup(date){
+    function recoverDataFromId(dataFromId){
       let row = document.createElement('tr');
       tbody.appendChild(row);
           
@@ -31,7 +30,7 @@ function cartBloc(){
       let img = document.createElement('img');
           
       image.appendChild(img);
-      img.setAttribute('src',date.imageUrl);
+      img.setAttribute('src',dataFromId.imageUrl);
       img.setAttribute('width','100%');
 
       let color = document.createElement('div');
@@ -41,7 +40,7 @@ function cartBloc(){
 
       let price = document.createElement('td');
       row.appendChild(price)
-      price.innerHTML = date.price/100 + "€";
+      price.innerHTML = dataFromId.price/100 + "€";
 
       let quantity = document.createElement('td');
       row.appendChild(quantity);
@@ -61,7 +60,7 @@ function cartBloc(){
 
       let totalEach = document.createElement('td');
       totalEach.setAttribute('class','intermediatePrice');
-      totalEach.innerHTML = input.value*date.price/100 + '€';
+      totalEach.innerHTML = input.value*dataFromId.price/100 + '€';
       row.appendChild(totalEach);
 
 /////////////////Indiquer le prix total du panier/////////////////          
@@ -91,7 +90,7 @@ function cartBloc(){
           }
         } 
 
-        totalEach.innerHTML = input.value*date.price/100 + '€'; 
+        totalEach.innerHTML = input.value*dataFromId.price/100 + '€'; 
         /////Modifier la quantité finale/////
         let inputElts = document.getElementsByClassName('changeQty');
         sumForChangementInCartQty = 0;
@@ -118,17 +117,19 @@ function cartBloc(){
         }
       }
 //////////////////Supprimer totalement un produit/////////////////
+      let eraseElt = document.createElement('td');
+      row.appendChild(eraseElt);
         let btnErase = document.createElement('btn');
         btnErase.innerHTML = 'Supprimer';
-        btnErase.setAttribute('class','btn btn-lg btn-primary btn-block text-uppercase btn-erase');
-        row.appendChild(btnErase);
+        btnErase.setAttribute('class','btn btn-sm mt-2 border-danger text-danger btn-block btn-erase');
+        eraseElt.appendChild(btnErase);
 
         let erase = document.getElementsByClassName('btn-erase');
         console.log(erase);
         for(let i = 0; i < erase.length; i++){
           console.log(erase[i]);
           erase[i].addEventListener('click', function(event){
-          event.target.parentElement.remove();
+          event.target.parentElement.parentElement.remove();
           
           let cartContent = JSON.parse(localStorage.getItem('cartContent'));
           //Supprimer du local Storage le produit non souhaité///

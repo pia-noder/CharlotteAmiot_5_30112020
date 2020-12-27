@@ -1,6 +1,6 @@
 
 /////////////////////////////////////////
-function ajaxCall(url,callback){
+function ajaxGet(url,callback){
     var xhr = new XMLHttpRequest();
     xhr.open('GET',url);
     xhr.onload = function(){

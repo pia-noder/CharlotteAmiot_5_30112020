@@ -7,50 +7,46 @@ body{
     font-size: 1em;
 }
 .masthead {
-    height: 100vh;
+    height: 75vh;
     min-height: 500px;
     background-image: url('../images/cool-teddy-bear.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+    margin-top:55px;
   }
-section{
+.main-section{
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
     margin-top:70px;
 }
+.main-section h4{
+    font-family: 'Amatic SC', cursive;
+    font-weight: 700;
+}
 
 /*Footer*/
 footer{
     display: flex;
-    margin-top: 15px;
 }
 
 footer section{
     display: flex;
     flex-direction: column;
 }
+footer h2{
+    font-size: 2em;
+    font-family: 'Amatic SC', cursive;
+}
 section ul{
-    margin-top: 15px;
     flex-direction: column;
     list-style: none;
 }
-/*Mise en page product.html*/
-#product-panel{
-    display: flex;
-    justify-content: space-around;
-}
-#img-panel{
-    width: 45%;
-}
-#img-panel img{
-    max-width: 100%;
-    height: auto;
-}
+
 /*Mises en page cart.html*/
 .main-heading{
-    font-size: 2em;
+    font-size: 1.5em;
     font-weight: bold;
 }
 .table-cart thead {
@@ -93,6 +89,7 @@ section ul{
     color: #989898;
     font-size: 16px;
 }
+
 /*Formulaire*/
 .card-order {
     border: 0;
@@ -124,7 +121,7 @@ section ul{
     height: auto;
     border-radius: 2rem;
   }
-/*Mise ne page check.html*/
+/*Mise en page check.html*/
 .knowledge{
     font-size: 1.5em;
     text-align: center;
