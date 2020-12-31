@@ -1,8 +1,8 @@
-ajaxGet('http://localhost:3000/api/teddies',UserImg);
+ajaxGet('http://localhost:3000/api/teddies',showProducts);
 
-function UserImg(data){
+function showProducts(dataFromAPI){
     //Ajouter dans le DOM les images venant de l'API
-    for(let i in data){
+    for(let i in dataFromAPI){
        let sectionElt = document.querySelector('section');
 
        let div = document.createElement('div');
@@ -13,11 +13,11 @@ function UserImg(data){
        div.appendChild(divCard);
 
        let link = document.createElement('a');
-       link.setAttribute('href','product.html?id='+data[i]._id);
+       link.setAttribute('href','product.html?id='+dataFromAPI[i]._id);
        divCard.appendChild(link);
 
        let img = document.createElement('img');
-       img.setAttribute('src',data[i].imageUrl);
+       img.setAttribute('src',dataFromAPI[i].imageUrl);
        img.setAttribute('width','100%');
        img.setAttribute('class','card-img-top img-fluid')
        link.appendChild(img);
@@ -28,20 +28,21 @@ function UserImg(data){
 
        let title = document.createElement('h4');
        title.setAttribute('class','card-title');
-       title.innerHTML = data[i].name;
+       title.innerHTML = dataFromAPI[i].name;
 
        let description =document.createElement('p');
        description.setAttribute('class','card-text');
-       description.innerHTML = data[i].description;
+       description.innerHTML = dataFromAPI[i].description;
        divLegend.appendChild(title);
        divLegend.appendChild(description);
 
        let price = document.createElement('span');
        price.setAttribute('class','card-text');
-       price.innerHTML = data[i].price/100 + '€';
+       price.innerHTML = dataFromAPI[i].price/100 + '€';
        divLegend.appendChild(price);
     }
 }
+/////////////Afficher le nombre de produit dans le panier////////////
 let cartContent = JSON.parse(localStorage.getItem("cartContent"));
 let nbProduct = document.getElementById("nbproduct");
   if(cartContent === null){

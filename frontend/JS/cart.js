@@ -1,6 +1,19 @@
-cartBloc();
+showCartProducts();
+
+function changeDisplayQty(){
+  let inputElts = document.getElementsByClassName('changeQty');
+  sumForChangementInCartQty = 0;
+  for(var i = 0 ; i < inputElts.length; i++){
+  let inputEltsValue = inputElts[i].value;
+  let sToNQty = parseInt(inputEltsValue);
+  let finalQty = sumForChangementInCartQty += sToNQty;
+  let totalQty = document.getElementById('productQuantity');
+  totalQty.innerHTML = '';
+  totalQty.innerHTML = finalQty;
+  }
+}
 //////Créer la page cart/////
-function cartBloc(){
+function showCartProducts(){
 
   ///Récupérer les info contenu dans le local Storage////////
   let values = JSON.parse(localStorage.getItem('cartContent'));
@@ -64,46 +77,35 @@ function cartBloc(){
       row.appendChild(totalEach);
 
 /////////////////Indiquer le prix total du panier/////////////////          
-    let totalOrder = document.getElementById('totalOrder');
-    for(let i in totalEach){
-      let content = totalEach.innerHTML;
-      deux = parseInt(content);
-      let totalPrice = sum += deux;
-      
-    totalOrder.innerHTML = totalPrice;
-    break;
-    }
+      let totalOrder = document.getElementById('totalOrder');
+      for(let i in totalEach){
+        let content = totalEach.innerHTML;
+        deux = parseInt(content);
+        let totalPrice = sum += deux;
+        
+      totalOrder.innerHTML = totalPrice;
+      break;
+      }
 
 
-////changer la quantité d'un prduit + modifier le LS/////
-      input.addEventListener("change",qty);
-      function qty(){
-        let cartContent2 = JSON.parse(localStorage.getItem('cartContent'));
-        for(var a in cartContent2){
-          if(cartContent2[a].option == value.option){
-            if(cartContent2[a].quantity !== input.value){
-              cartContent2[a].quantity = input.value;
-              let cartC = JSON.stringify(cartContent2);
+////changer la quantité d'un produit + modifier le LS/////
+      input.addEventListener("change",eventChangeQty);
+      function eventChangeQty(){
+        let cartContentChangeQty = JSON.parse(localStorage.getItem('cartContent'));
+        for(var a in cartContentChangeQty){
+          if(cartContentChangeQty[a].option == value.option){
+            if(cartContentChangeQty[a].quantity !== input.value){
+              cartContentChangeQty[a].quantity = input.value;
+              let cartContentAfterQtyInput = JSON.stringify(cartContentChangeQty);
               localStorage.clear();
-              localStorage.setItem('cartContent',cartC);
+              localStorage.setItem('cartContentA',cartContentAfterQtyInput);
             }
           }
         } 
 
         totalEach.innerHTML = input.value*dataFromId.price/100 + '€'; 
-        /////Modifier la quantité finale/////
-        let inputElts = document.getElementsByClassName('changeQty');
-        sumForChangementInCartQty = 0;
-        for(var i = 0 ; i < inputElts.length; i++){
-        let inputEltsValue = inputElts[i].value;
-        let sToNQty = parseInt(inputEltsValue);
-        let finalQty = sumForChangementInCartQty += sToNQty;
-        let totalQty = document.getElementById('productQuantity');
-        totalQty.innerHTML = '';
-        totalQty.innerHTML = finalQty;
-        }
-        
-        
+        changeDisplayQty();
+             
         /////Modifier le prix final/////
         let intermediatePrice = document.getElementsByClassName('intermediatePrice');
         let sumForChangementInCartPrice = 0;
@@ -116,33 +118,40 @@ function cartBloc(){
           totalOrder.innerHTML = finalPrice;
         }
       }
-//////////////////Supprimer totalement un produit/////////////////
+      //////////////////Supprimer totalement un produit/////////////////
       let eraseElt = document.createElement('td');
       row.appendChild(eraseElt);
-        let btnErase = document.createElement('btn');
-        btnErase.innerHTML = 'Supprimer';
-        btnErase.setAttribute('class','btn btn-sm mt-2 border-danger text-danger btn-block btn-erase');
-        eraseElt.appendChild(btnErase);
+      let btnErase = document.createElement('btn');
+      btnErase.innerHTML = 'Supprimer';
+      btnErase.setAttribute('class','btn btn-sm mt-2 border-danger text-danger btn-block btn-erase');
+      btnErase.setAttribute('data-id',dataFromId._id);
+      btnErase.setAttribute('data-option',value.option);
+      eraseElt.appendChild(btnErase);
 
-        let erase = document.getElementsByClassName('btn-erase');
-        console.log(erase);
-        for(let i = 0; i < erase.length; i++){
-          console.log(erase[i]);
-          erase[i].addEventListener('click', function(event){
+      let erase = document.getElementsByClassName('btn-erase');
+      let cartContent = JSON.parse(localStorage.getItem('cartContent'));
+
+      for(let i = 0; i < erase.length; i++){
+
+        erase[i].addEventListener('click', function(event){
           event.target.parentElement.parentElement.remove();
-          
-          let cartContent = JSON.parse(localStorage.getItem('cartContent'));
-          //Supprimer du local Storage le produit non souhaité///
-          cartContent.splice(i,1);
+          let id = event.target.getAttribute("data-id");
+          let option = event.target.getAttribute("data-option");
           console.log(cartContent);
-          localStorage.removeItem('cartContent');
-          localStorage.setItem('cartContent',JSON.stringify(cartContent)); 
-        })
+          for(let j = 0; j < cartContent.length; j++){
+            if(cartContent[j].id == id && cartContent[j].option == option){
+            cartContent.splice(j,1);
+            localStorage.removeItem('cartContent');
+            localStorage.setItem('cartContent',JSON.stringify(cartContent));
+            break;
+            }
+          }
+          changeDisplayQty();  
+            });
         };
         
 
 ////////////////Indiquer le nombre de produits au niveau de la nav/////////////          
-        let cartContent = JSON.parse(localStorage.getItem("cartContent"));
         let nbProduct = document.getElementById("nbproduct");
         nbProduct.innerHTML = cartContent.length;
 
@@ -158,7 +167,6 @@ let sum = 0;
 for (let i in cartC){
   let productQuantity = document.getElementById('productQuantity');
   let SToN = parseInt(cartC[i].quantity);
-  console.log(SToN);
   let TotalArticle = sum += SToN;
   productQuantity.innerHTML = TotalArticle;
 }
@@ -233,7 +241,7 @@ function validEmail(email){
   if(testEmail){
     small.innerHTML = "adresse email valide";
     small.classList.remove('text-danger');
-    small.classList.add('text-succes');
+    small.classList.add('text-success');
     return true;
   } else {
     small.innerHTML = 'adresse email non valide';
@@ -302,6 +310,8 @@ function order(e){
                   alert("serveur HS");
               }
             });
+  }else{
+    alert("Remplisser correctement les champs du formulaire de commande!");
   }
 }
   

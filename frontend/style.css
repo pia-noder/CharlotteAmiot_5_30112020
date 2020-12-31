@@ -59,6 +59,7 @@ section ul{
     color: #484848;
     font-size: 1.5em;
     font-weight: 400;
+    text-align: center;
 }
 .table-cart tr td {
     padding: 40px 15px 27px;

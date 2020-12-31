@@ -3,15 +3,16 @@ function getId(){
     const valeur = window.location.search;
     return valeur.replace('?id=',''); 
 }
+
 const id = getId();///intégrer le résultat de la fonction dans une cosntante pour pouvoir la réutiliser plus tard, sans avoir à réécrire le nom de la fonction
 
 
 //////////////////Récupérer les infos concernant les articles//////////
-ajaxGet('http://localhost:3000/api/teddies/' + id ,productBloc);//sélectionne uniquement les infos du produit souhaité
+ajaxGet('http://localhost:3000/api/teddies/' + id ,showProductFromId);//sélectionne uniquement les infos du produit souhaité
    
 ////////////Construire le DOM/////
 
-function productBloc(data){
+function showProductFromId(data){
     console.log(data);
     let section = document.querySelector('section');
     section.setAttribute('class','m-5 px-3 d-md-flex');
@@ -72,41 +73,39 @@ function productBloc(data){
     btn.innerText = "Ajouter au Panier";
     info.appendChild(btn);
   
-///////Envoyer dans le local Storage/////
-function addToCart(optionSelected){
-    let cartContent = JSON.parse(localStorage.getItem("cartContent"));
-    //Si le local storage est vide créé le tableau qui contiendra les produits
-    if(cartContent === null){
-         cartContent = [];
+    ///////Envoyer dans le local Storage/////
+    function addToCart(optionSelected){
+        let cartContent = JSON.parse(localStorage.getItem("cartContent"));
+        //Si le local storage est vide créé le tableau qui contiendra les produits
+        if(cartContent === null){
+            cartContent = [];
+        }
+        for (let i in cartContent){
+            if(cartContent[i].id === id && cartContent[i].option === optionSelected){
+                cartContent[i].quantity ++;         
+            }      
+        }
+        //s'il n'y a pas déjà un objet identique dans le tableau alors on créé un nouvel objet     
+        let product = new infoProduct(id, optionSelected, 1);
+        cartContent.push(product); 
+        localStorage.setItem('cartContent',JSON.stringify(cartContent));
     }
-    for (let i in cartContent){
-        if(cartContent[i].id === id && cartContent[i].option === optionSelected){
-            cartContent[i].quantity ++;         
-        }      
-    }
-    
-    
-    //s'il n'y a pas déjà un objet identique dans le tableau alors on créé un nouvel objet     
-    let product = new infoProduct(id, optionSelected, 1);
-    cartContent.push(product); 
-    localStorage.setItem('cartContent',JSON.stringify(cartContent));
-}
-////////Ajouter au panier/////////// 
-btn.addEventListener('click', function(){ 
-    const select = document.getElementsByTagName("select");         
-    const optionSelected = select[0].value;///car select est un tableau donc il faut indiquer un emplacement
-        
-    addToCart(optionSelected);
-    alert("Produit ajouté au panier");
-});
 
-////Ajouter nbre d'article dans le panier dans la nav/////////
+    btn.addEventListener('click', function(){ 
+        const select = document.getElementsByTagName("select");         
+        const optionSelected = select[0].value;///car select est un tableau donc il faut indiquer un emplacement
+            
+        addToCart(optionSelected);
+        alert("Produit ajouté au panier");
+    });
+
+    ////Ajouter nbre d'article dans le panier dans la nav/////////
     let cartContent = JSON.parse(localStorage.getItem("cartContent"));
     let nbProduct = document.getElementById("nbproduct");
     if(cartContent === null){
         nbProduct.innerHTML = 0;
     }else{
-      nbProduct.innerHTML = cartContent.length;  
+        nbProduct.innerHTML = cartContent.length;  
     }
 }
 
