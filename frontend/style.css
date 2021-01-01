@@ -36,18 +36,28 @@ footer section{
     flex-direction: column;
 }
 footer h2{
-    font-size: 2em;
+    font-size: 1.5em;
     font-family: 'Amatic SC', cursive;
 }
 section ul{
     flex-direction: column;
     list-style: none;
 }
-
-/*Mises en page cart.html*/
+footer > li{
+    font-size: 0.7em;
+}
+.main{
+    margin-top: 75px;
+}
+/*Mise en page product.html*/
+.product-name{
+    font-family: 'Amatic SC', cursive;
+}
+/*Mise en page cart.html*/
 .main-heading{
     font-size: 1.5em;
     font-weight: bold;
+    margin-bottom: 25px;
 }
 .table-cart thead {
     margin-top: 10px;
@@ -90,6 +100,10 @@ section ul{
     color: #989898;
     font-size: 16px;
 }
+.nb-article{
+    margin-top:10px;
+    font-size:1em;
+}
 
 /*Formulaire*/
 .card-order {
@@ -101,7 +115,7 @@ section ul{
   
   .form-order {
     width: 50%;
-    text-align: center;
+    margin-left: 25%;
   }
   
   .form-order .btn {
@@ -112,7 +126,10 @@ section ul{
     padding: 1rem;
     transition: all 0.2s;
   }
-  
+  .recapitulatif-Product{
+      background-color: #caf0f8;
+      border-radius: 10px;
+  }
   .form-label {
     position: relative;
     margin-bottom: 1rem;
@@ -127,6 +144,7 @@ section ul{
     font-size: 1.5em;
     text-align: center;
     padding:0 50px;
+    margin-bottom: 50px;
 }
 .infoDelivery{
     display:flex;
@@ -137,6 +155,13 @@ p{
     font-weight: normal;
 }
 .info-heading{
-    font-size: 1.5em;
+    font-size: 1.1em;
     font-weight: bold;
+    text-align: center;
+}
+#totalPrice{
+    font-weight: 300;
+}
+#btnBackToIndex{
+    margin:45px 30%;
 }

@@ -1,5 +1,6 @@
-ajaxGet('http://localhost:3000/api/teddies',showProducts);
-
+ajaxGet('http://localhost:3000/api/teddies/').then( function(response){
+    showProducts(response);
+});
 function showProducts(dataFromAPI){
     //Ajouter dans le DOM les images venant de l'API
     for(let i in dataFromAPI){

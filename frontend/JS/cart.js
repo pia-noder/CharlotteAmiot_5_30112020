@@ -12,7 +12,19 @@ function changeDisplayQty(){
   totalQty.innerHTML = finalQty;
   }
 }
-//////Créer la page cart/////
+function changeDisplayPrice(){
+  let intermediatePrice = document.getElementsByClassName('intermediatePrice');
+  let sumForChangementInCartPrice = 0;
+  for(var i = 0; 0 < intermediatePrice.length; i++){
+    let priceArticle = intermediatePrice[i].innerHTML;
+    let sToN = parseInt(priceArticle);
+    let finalPrice = sumForChangementInCartPrice += sToN;
+    totalOrder.innerHTML = '';
+    totalOrder.innerHTML = finalPrice;
+    }
+  }               
+
+//////Créer le DOM de caert.html/////
 function showCartProducts(){
 
   ///Récupérer les info contenu dans le local Storage////////
@@ -23,8 +35,12 @@ function showCartProducts(){
   let tbody = document.querySelector('tbody');
 
   for (let value of values){
+
     let id = value.id;
-    ajaxGet('http://localhost:3000/api/teddies/' + id ,recoverDataFromId);
+    
+    ajaxGet('http://localhost:3000/api/teddies/' + id).then( function(response){
+    recoverDataFromId(response);
+});
         
     function recoverDataFromId(dataFromId){
       let row = document.createElement('tr');
@@ -73,22 +89,22 @@ function showCartProducts(){
 
       let totalEach = document.createElement('td');
       totalEach.setAttribute('class','intermediatePrice');
+      totalIntermediatePrice = document.getElementsByClassName('intermediatePrice');
       totalEach.innerHTML = input.value*dataFromId.price/100 + '€';
       row.appendChild(totalEach);
 
 /////////////////Indiquer le prix total du panier/////////////////          
       let totalOrder = document.getElementById('totalOrder');
-      for(let i in totalEach){
-        let content = totalEach.innerHTML;
+      sumOfPrice = 0;
+      for(let i = 0; i < totalIntermediatePrice.length; i++){
+        let content = totalIntermediatePrice[i].innerHTML;
         deux = parseInt(content);
-        let totalPrice = sum += deux;
-        
-      totalOrder.innerHTML = totalPrice;
-      break;
+        let totalPrice = sumOfPrice += deux;
+        totalOrder.innerHTML = totalPrice;
       }
 
 
-////changer la quantité d'un produit + modifier le LS/////
+////changer la quantité d'un produit et modifier le Local Storage/////
       input.addEventListener("change",eventChangeQty);
       function eventChangeQty(){
         let cartContentChangeQty = JSON.parse(localStorage.getItem('cartContent'));
@@ -98,26 +114,17 @@ function showCartProducts(){
               cartContentChangeQty[a].quantity = input.value;
               let cartContentAfterQtyInput = JSON.stringify(cartContentChangeQty);
               localStorage.clear();
-              localStorage.setItem('cartContentA',cartContentAfterQtyInput);
+              localStorage.setItem('cartContent',cartContentAfterQtyInput);
             }
           }
         } 
 
         totalEach.innerHTML = input.value*dataFromId.price/100 + '€'; 
         changeDisplayQty();
-             
+        changeDisplayPrice();    
         /////Modifier le prix final/////
-        let intermediatePrice = document.getElementsByClassName('intermediatePrice');
-        let sumForChangementInCartPrice = 0;
-        for(var i = 0; 0 < intermediatePrice.length; i++){
-          let priceArticle = intermediatePrice[i].innerHTML;
-          let sToN = parseInt(priceArticle);
-          console.log(sToN);
-          let finalPrice = sumForChangementInCartPrice += sToN;
-          totalOrder.innerHTML = '';
-          totalOrder.innerHTML = finalPrice;
-        }
-      }
+
+      }  
       //////////////////Supprimer totalement un produit/////////////////
       let eraseElt = document.createElement('td');
       row.appendChild(eraseElt);
@@ -146,7 +153,8 @@ function showCartProducts(){
             break;
             }
           }
-          changeDisplayQty();  
+          changeDisplayQty();
+          changeDisplayPrice();  
             });
         };
         

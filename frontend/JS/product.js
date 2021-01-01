@@ -8,8 +8,9 @@ const id = getId();///intégrer le résultat de la fonction dans une cosntante p
 
 
 //////////////////Récupérer les infos concernant les articles//////////
-ajaxGet('http://localhost:3000/api/teddies/' + id ,showProductFromId);//sélectionne uniquement les infos du produit souhaité
-   
+ajaxGet('http://localhost:3000/api/teddies/' + id).then( function(response){
+    showProductFromId(response);
+});
 ////////////Construire le DOM/////
 
 function showProductFromId(data){
@@ -29,7 +30,7 @@ function showProductFromId(data){
     section.appendChild(info);
 
     let name = document.createElement('h3');
-    name.setAttribute('class','my-3');
+    name.setAttribute('class','my-3 product-name');
     name.innerHTML = data.name;
     info.appendChild(name);
 

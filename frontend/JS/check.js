@@ -4,7 +4,7 @@ orderId.innerHTML = orderIdValue;
 
 let totalPriceValue = localStorage.getItem('TotalPrice');
 let totalPrice = document.getElementById('totalPrice');
-totalPrice.innerHTML = totalPriceValue;
+totalPrice.innerHTML = totalPriceValue + "€";
 
 let idCustomer = localStorage.getItem('tableau');
 let  customer = JSON.parse(idCustomer);

@@ -1,6 +1,20 @@
-
+function ajaxGet(url){
+    return new Promise(function(resolve, reject){
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET',url);
+        xhr.onload = function(){
+            if(this.status === 200){
+                resolve(JSON.parse(this.response));
+            }else{
+                reject(xhr.status);
+            }
+        }
+       xhr.send(); 
+    });
+    
+}
 /////////////////////////////////////////
-function ajaxGet(url,callback){
+/*function ajaxGet(url,callback){
     var xhr = new XMLHttpRequest();
     xhr.open('GET',url);
     xhr.onload = function(){
@@ -12,7 +26,7 @@ function ajaxGet(url,callback){
             }
         }
     xhr.send();
-}
+}*/
 ///////////////////////
 function ajaxPost(url,InfoSended){
     return new Promise(function(resolve, reject){
