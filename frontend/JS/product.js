@@ -1,32 +1,39 @@
-/////////////////Récupérer Id du produit ///////
+/////////////////Récupérer l'id du produit ///////
 function getId(){
     const valeur = window.location.search;
     return valeur.replace('?id=',''); 
 }
 
-const id = getId();///intégrer le résultat de la fonction dans une cosntante pour pouvoir la réutiliser plus tard, sans avoir à réécrire le nom de la fonction
+const id = getId();//intégrer le résultat de la fonction dans une
+                    //constante pour pouvoir la réutiliser plus tard, sans avoir à réécrire le nom de la fonction
 
 
-//////////////////Récupérer les infos concernant les articles//////////
+//////////////////Récupérer les datas concernant les produits au prêt de l'API//////////
 ajaxGet('http://localhost:3000/api/teddies/' + id).then( function(response){
     showProductFromId(response);
+}).catch(function(error){
+    console.log(error);
+        alert("Problème lors de la requête au serveur");
 });
-////////////Construire le DOM/////
 
+////////////Construire le DOM/////
 function showProductFromId(data){
-    console.log(data);
+
     let section = document.querySelector('section');
     section.setAttribute('class','m-5 px-3 d-md-flex');
-     let div = document.createElement('div');
-     div.setAttribute('class','col-md-7');
-     section.appendChild(div);
-     let img = document.createElement('img');
-     img.setAttribute('src',data.imageUrl);
-     img.setAttribute('width','100%');
+
+    ////Création de la div contenant l'image////
+    let div = document.createElement('div');
+    div.setAttribute('class','col-md-7');
+    section.appendChild(div);
+    let img = document.createElement('img');
+    img.setAttribute('src',data.imageUrl);
+    img.setAttribute('width','100%');
     div.appendChild(img);
-        ////Info/////
+    
+    ////Création de la div contenant  les infos du produits////
     let info = document.createElement('div');
-    info.setAttribute('class','col-md-4');
+    info.setAttribute('class','col-md-4 mx-3');
     section.appendChild(info);
 
     let name = document.createElement('h3');
@@ -44,7 +51,7 @@ function showProductFromId(data){
     details.setAttribute('class','my-3');
     info.appendChild(details);
     
-    ///////Choix des options/////////
+    ///////Afficher option des couleurs/////////
     let form = document.createElement('form');
     let paragraphe = document.createElement('p');
     form.appendChild(paragraphe);
@@ -52,45 +59,32 @@ function showProductFromId(data){
     let select = document.createElement('select');
     select.setAttribute('id','color');
     select.setAttribute('class','form-select');
-        //////Label////
+    
     let label = document.createElement('label');
     label.setAttribute('for','color');
     label.setAttribute('class','form-label');
     paragraphe.appendChild(label);
     paragraphe.appendChild(select);
+
     for(let i in data.colors){
         let option = document.createElement('option');
         select.appendChild(option);
         option.setAttribute('value',data.colors[i]);
         option.innerHTML = data.colors[i];
     }
+
+
     let price = document.createElement('p');
     price.setAttribute('class','fw-bold');
     info.appendChild(price);
     price.innerText = data.price/100 + '€';
+
+    ////Bouton d'ajout au panier///
     let btn = document.createElement('button');
     btn.setAttribute('class','btn btn-primary');
     btn.setAttribute('type','submit');
     btn.innerText = "Ajouter au Panier";
     info.appendChild(btn);
-  
-    ///////Envoyer dans le local Storage/////
-    function addToCart(optionSelected){
-        let cartContent = JSON.parse(localStorage.getItem("cartContent"));
-        //Si le local storage est vide créé le tableau qui contiendra les produits
-        if(cartContent === null){
-            cartContent = [];
-        }
-        for (let i in cartContent){
-            if(cartContent[i].id === id && cartContent[i].option === optionSelected){
-                cartContent[i].quantity ++;         
-            }      
-        }
-        //s'il n'y a pas déjà un objet identique dans le tableau alors on créé un nouvel objet     
-        let product = new infoProduct(id, optionSelected, 1);
-        cartContent.push(product); 
-        localStorage.setItem('cartContent',JSON.stringify(cartContent));
-    }
 
     btn.addEventListener('click', function(){ 
         const select = document.getElementsByTagName("select");         
@@ -99,18 +93,35 @@ function showProductFromId(data){
         addToCart(optionSelected);
         alert("Produit ajouté au panier");
     });
-
-    ////Ajouter nbre d'article dans le panier dans la nav/////////
+}  
+/////////////Envoyer dans le local Storage////////////
+function addToCart(optionSelected){
     let cartContent = JSON.parse(localStorage.getItem("cartContent"));
-    let nbProduct = document.getElementById("nbproduct");
+    //Si le local storage est vide créé le tableau qui contiendra les produits
     if(cartContent === null){
-        nbProduct.innerHTML = 0;
-    }else{
-        nbProduct.innerHTML = cartContent.length;  
+        cartContent = [];
     }
+    for (let i in cartContent){
+        if(cartContent[i].id === id && cartContent[i].option === optionSelected){
+            cartContent[i].quantity ++;         
+        }      
+    }
+    //s'il n'y a pas déjà un objet identique dans le tableau alors on créé un nouvel objet     
+    let product = new infoProduct(id, optionSelected, 1);
+    cartContent.push(product); 
+    localStorage.setItem('cartContent',JSON.stringify(cartContent));
 }
 
+////Afficher le nbre d'article dans la nav/////////
+let cartContent = JSON.parse(localStorage.getItem("cartContent"));
+let nbProduct = document.getElementById("nbproduct");
+if(cartContent === null){
+    nbProduct.innerHTML = 0;
+}else{
+    nbProduct.innerHTML = cartContent.length;  
+}
 
+/////////////Former l'objet envoyé dans le local storage//////////
 class infoProduct{
     constructor(id, option, quantity){
         this.id = id;

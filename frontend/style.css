@@ -58,42 +58,43 @@ footer > li{
     font-size: 1.5em;
     font-weight: bold;
     margin-bottom: 25px;
+    margin-left: 1.5em;
 }
-.table-cart thead {
+.table-responsive thead {
     margin-top: 10px;
     border-bottom: 1px solid #e5e5e5;
     margin-bottom: 5px;
 }
-.table-cart thead tr th {
+.table-responsive thead tr th {
     padding: 8px 0 18px;
     color: #484848;
     font-size: 1.5em;
     font-weight: 400;
     text-align: center;
 }
-.table-cart tr td {
+.table-responsive tr td {
     padding: 40px 15px 27px;
     vertical-align: middle;
 }
 
-.table-cart tr td .img-product {
+.table-responsive tr td .img-product {
     width: 150px;
     float: left;
     margin-left: 8px;
     margin-right: 31px;
     line-height: 63px;
 }
-.table-cart tr td .img-product img {
+.table-responsive tr td .img-product img {
 	width: 100%;
 }
-.table-cart tr td .name-product {
+.table-responsive tr td .name-product {
     font-size: 15px;
     color: #484848;
     padding-top: 8px;
     line-height: 24px;
     width: 50%;
 }
-.table-cart tr td .price {
+.table-responsive tr td .price {
     text-align: right;
     line-height: 64px;
     margin-right: 40px;

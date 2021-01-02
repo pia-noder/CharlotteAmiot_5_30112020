@@ -1,8 +1,14 @@
+///////Récupérer les datas au prêt de l'API///////////
 ajaxGet('http://localhost:3000/api/teddies/').then( function(response){
     showProducts(response);
+}).catch(function(error){
+  console.log(error);
+  alert("Problème lors de la requête au serveur");
 });
+
+//////////Construire le DOM////////////////////////////
 function showProducts(dataFromAPI){
-    //Ajouter dans le DOM les images venant de l'API
+
     for(let i in dataFromAPI){
        let sectionElt = document.querySelector('section');
 
@@ -43,7 +49,8 @@ function showProducts(dataFromAPI){
        divLegend.appendChild(price);
     }
 }
-/////////////Afficher le nombre de produit dans le panier////////////
+
+/////////////Afficher la quantité de produits dans la nav////////////
 let cartContent = JSON.parse(localStorage.getItem("cartContent"));
 let nbProduct = document.getElementById("nbproduct");
   if(cartContent === null){
