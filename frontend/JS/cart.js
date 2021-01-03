@@ -21,8 +21,8 @@ function changeDisplayPrice(){
     let finalPrice = sumForChangementInCartPrice += sToN;
     totalOrder.innerHTML = '';
     totalOrder.innerHTML = finalPrice;
-    }
-  }   
+  }
+}   
 
 ////////Afficher les éléments contenus dans le panier//////
 let values = JSON.parse(localStorage.getItem('cartContent'));

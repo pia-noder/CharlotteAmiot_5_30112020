@@ -1,3 +1,4 @@
+//////////Requête GET envoyer à l'API/////////////
 function ajaxGet(url){
     return new Promise(function(resolve, reject){
         var xhr = new XMLHttpRequest();
@@ -11,23 +12,9 @@ function ajaxGet(url){
         }
        xhr.send(); 
     });
-    
 }
-/////////////////////////////////////////
-/*function ajaxGet(url,callback){
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET',url);
-    xhr.onload = function(){
-            if(this.status === 200){
-                var response = JSON.parse(this.responseText);
-                callback(response);
-            }else{
-                console.log(xhr.status);
-            }
-        }
-    xhr.send();
-}*/
-///////////////////////
+
+//////////Requête POST envoyer à l'API/////////////
 function ajaxPost(url,InfoSended){
     return new Promise(function(resolve, reject){
         var xhr = new XMLHttpRequest();

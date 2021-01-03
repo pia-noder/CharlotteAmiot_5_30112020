@@ -8,7 +8,7 @@ ajaxGet('http://localhost:3000/api/teddies/').then( function(response){
 
 //////////Construire le DOM////////////////////////////
 function showProducts(dataFromAPI){
-
+    
     for(let i in dataFromAPI){
        let sectionElt = document.querySelector('section');
 
@@ -19,6 +19,7 @@ function showProducts(dataFromAPI){
        divCard.setAttribute('class','card h-100');
        div.appendChild(divCard);
 
+      ////Renvoyer vers la page du produit/////
        let link = document.createElement('a');
        link.setAttribute('href','product.html?id='+dataFromAPI[i]._id);
        divCard.appendChild(link);
