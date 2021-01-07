@@ -16,4 +16,6 @@ console when the server starts, e.g. `Listening on port 3001`.
 
 ### Plan test ###
 
-images/P5_02_plantests.pdf
+.. image:: https://github.com/Morgan-Stanley/testplan/blob/master/doc/images/pdf/readme_server_client.png
+images/P5_02_plantests-1.png
+images/P5_02_plantests-2.png
