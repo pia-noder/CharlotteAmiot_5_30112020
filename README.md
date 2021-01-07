@@ -16,6 +16,6 @@ console when the server starts, e.g. `Listening on port 3001`.
 
 ### Plan test ###
 
-![Image of plan test](../images/planTests-1.png)
-![Image of plan test](../images/planTests-2.png)
+![Image of plan test](../master/images/planTest-1.png)
+![Image of plan test](../master/images/planTest-1.png)
 
