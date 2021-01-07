@@ -11,7 +11,7 @@ function changeDisplayQty(){
   totalQty.innerHTML = finalQty;
   }
 }
-//////changer l'affichage du prix fianl si modification du nbre de produits//////
+//////changer l'affichage du prix final si modification du nbre de produits//////
 function changeDisplayPrice(){
   let intermediatePrice = document.getElementsByClassName('intermediatePrice');
   let sumForChangementInCartPrice = 0;
@@ -24,8 +24,9 @@ function changeDisplayPrice(){
   }
 }   
 
+var keyCartContent = 'cartContent';
 ////////Afficher les éléments contenus dans le panier//////
-let values = JSON.parse(localStorage.getItem('cartContent'));
+let values = collectLocalS(keyCartContent);
 if (values === null || values == 0){
   alert('le panier est vide')
 }else{
@@ -99,7 +100,7 @@ function showCartProducts(){
       row.appendChild(totalEach);
 
       //Afficher la quantité totale de produits//////
-      let cartC = JSON.parse(localStorage.getItem('cartContent'));
+      let cartC = collectLocalS(keyCartContent);
       let sum = 0;
       for (let i in cartC){
         let productQuantity = document.getElementById('productQuantity');
@@ -119,14 +120,15 @@ function showCartProducts(){
 ////Changer la quantité d'un produit et modifier le Local Storage/////
       input.addEventListener("change",eventChangeQty);
       function eventChangeQty(){
-        let cartContentChangeQty = JSON.parse(localStorage.getItem('cartContent'));
+        let cartContentChangeQty = collectLocalS(keyCartContent);
         for(var a in cartContentChangeQty){
           if(cartContentChangeQty[a].option == value.option){
             if(cartContentChangeQty[a].quantity !== input.value){
               cartContentChangeQty[a].quantity = input.value;
-              let cartContentAfterQtyInput = JSON.stringify(cartContentChangeQty);
+              //let cartContentAfterQtyInput = JSON.stringify(cartContentChangeQty);
               localStorage.clear();
-              localStorage.setItem('cartContent',cartContentAfterQtyInput);
+              sendToLocalS(keyCartContent,cartContentChangeQty);
+              //localStorage.setItem('cartContent',cartContentAfterQtyInput);
             }
           }
         } 
@@ -145,7 +147,7 @@ function showCartProducts(){
       eraseElt.appendChild(btnErase);
 
       let erase = document.getElementsByClassName('btn-erase');
-      let cartContent = JSON.parse(localStorage.getItem('cartContent'));
+      let cartContent = collectLocalS(keyCartContent);
       ////Supprimer le produit du DOM////
       for(let i = 0; i < erase.length; i++){
         erase[i].addEventListener('click', function(event){
@@ -158,7 +160,8 @@ function showCartProducts(){
             if(cartContent[j].id == id && cartContent[j].option == option){
             cartContent.splice(j,1);
             localStorage.removeItem('cartContent');
-            localStorage.setItem('cartContent',JSON.stringify(cartContent));
+            //localStorage.setItem('cartContent',JSON.stringify(cartContent));
+            sendToLocalS(keyCartContent,cartContent);
             break;
             }
           }
@@ -269,32 +272,18 @@ function order(e){
       let city = document.getElementById('inputCity').value;
       let email = document.getElementById('inputEmail').value;
 
-        class infoContact {
-          constructor(firstName,lastName, address, city, email){
-            this.firstName = firstName;
-            this.lastName = lastName;
-            this.address = address;
-            this.city = city;
-            this.email = email;
-            }
-        }
-
+      
         let contact = new infoContact(firstName,lastName,address,city,email);
         localStorage.setItem('tableau',JSON.stringify(contact));
 
         
         let products = [];
-        let productCart = JSON.parse(localStorage.getItem("cartContent"));
+        let productCart = collectLocalS(keyCartContent);
         for(let i= 0; i< productCart.length; i++){
           products.push(productCart[i].id);
         }
         
-        class infoSend {
-          constructor(contact,products){
-            this.contact = contact;
-            this.products = products;
-          }
-        }
+       
         ///Création de l'objet envoyer avec la requête POST///
         let InfoSend = new infoSend(contact, products);
 
@@ -303,7 +292,7 @@ function order(e){
               let TotalPriceElt = document.getElementById('totalOrder');
               TotalPrice = TotalPriceElt.innerText;
               localStorage.setItem('TotalPrice',TotalPrice);
-              window.location.href = "check.html";
+              window.location = "check.html";
           }).catch(function(error){
             console.log(error);
             alert("Problème lors de la requête au serveur");
@@ -313,8 +302,6 @@ function order(e){
   }
 }
   
-
-
 
 
 

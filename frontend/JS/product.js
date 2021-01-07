@@ -1,3 +1,6 @@
+/////Définition des clés utilisées pour le local storage////
+var keyCartContent = 'cartContent';
+
 /////////////////Récupérer l'id du produit ///////
 function getId(){
     const valeur = window.location.search;
@@ -18,7 +21,6 @@ ajaxGet('http://localhost:3000/api/teddies/' + id).then( function(response){
 
 ////////////Construire le DOM/////
 function showProductFromId(data){
-
     let section = document.querySelector('section');
     section.setAttribute('class','m-5 px-3 d-md-flex');
 
@@ -65,7 +67,8 @@ function showProductFromId(data){
     label.setAttribute('class','form-label');
     paragraphe.appendChild(label);
     paragraphe.appendChild(select);
-
+    
+    console.log(data.colors);
     for(let i in data.colors){
         let option = document.createElement('option');
         select.appendChild(option);
@@ -96,7 +99,7 @@ function showProductFromId(data){
 }  
 /////////////Envoyer dans le local Storage////////////
 function addToCart(optionSelected){
-    let cartContent = JSON.parse(localStorage.getItem("cartContent"));
+    let cartContent = collectLocalS(keyCartContent);
     //Si le local storage est vide créé le tableau qui contiendra les produits
     if(cartContent === null){
         cartContent = [];
@@ -109,23 +112,10 @@ function addToCart(optionSelected){
     //s'il n'y a pas déjà un objet identique dans le tableau alors on créé un nouvel objet     
     let product = new infoProduct(id, optionSelected, 1);
     cartContent.push(product); 
-    localStorage.setItem('cartContent',JSON.stringify(cartContent));
+    sendToLocalS(keyCartContent,cartContent)
 }
 
-////Afficher le nbre d'article dans la nav/////////
-let cartContent = JSON.parse(localStorage.getItem("cartContent"));
-let nbProduct = document.getElementById("nbproduct");
-if(cartContent === null){
-    nbProduct.innerHTML = 0;
-}else{
-    nbProduct.innerHTML = cartContent.length;  
-}
+qtyDisplayInNav();
 
-/////////////Former l'objet envoyé dans le local storage//////////
-class infoProduct{
-    constructor(id, option, quantity){
-        this.id = id;
-        this.option = option;
-        this.quantity = quantity;
-    }
-}
+
+

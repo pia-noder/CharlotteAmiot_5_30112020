@@ -21,7 +21,7 @@ function showProducts(dataFromAPI){
 
       ////Renvoyer vers la page du produit/////
        let link = document.createElement('a');
-       link.setAttribute('href','product.html?id='+dataFromAPI[i]._id);
+       link.setAttribute('href','product.html?id='+ dataFromAPI[i]._id);
        divCard.appendChild(link);
 
        let img = document.createElement('img');
@@ -51,13 +51,5 @@ function showProducts(dataFromAPI){
     }
 }
 
-/////////////Afficher la quantité de produits dans la nav////////////
-let cartContent = JSON.parse(localStorage.getItem("cartContent"));
-let nbProduct = document.getElementById("nbproduct");
-  if(cartContent === null){
-    nbProduct.innerHTML = 0;
-  }else{
-    nbProduct.innerHTML = cartContent.length;  
-  }
-   
+qtyDisplayInNav();
     

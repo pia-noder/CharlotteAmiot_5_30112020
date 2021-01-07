@@ -35,6 +35,26 @@ function ajaxPost(url,InfoSended){
     });
 }
 
+////Afficher le nbre d'article dans la nav/////////
+function qtyDisplayInNav (){
+    let cartContent = JSON.parse(localStorage.getItem("cartContent"));
+    let nbProduct = document.getElementById("nbproduct");
+    if(cartContent === null){
+    nbProduct.innerHTML = 0;
+    }else{
+    nbProduct.innerHTML = cartContent.length;  
+    }
+};
+
+/////Récupérer le contenu du localStorage////
+function collectLocalS(key){
+    return JSON.parse(localStorage.getItem(key));
+};
+
+///Envoyer des données dans le localStorage////
+function sendToLocalS(key, dataSend){
+    localStorage.setItem(key,JSON.stringify(dataSend));
+}
 
 
 
