@@ -16,8 +16,6 @@ console when the server starts, e.g. `Listening on port 3001`.
 
 ### Plan test ###
 
-<img src="images/planTests-1.png" alt="My cool logo"/>
-<img src="images/planTests-2.png" alt="My cool logo"/>
+![Image of plan test](https://github.com/pia-noder/CharlotteAmiot_5_30112020/blob/master/images/planTests-1.png)
+![Image of plan test](https://github.com/pia-noder/CharlotteAmiot_5_30112020/blob/master/images/planTests-2.png)
 
-![](https://github.com/pia-noder/CharlotteAmiot_5_30112020/blob/master/images/planTests-1.png)
-![](https://github.com/pia-noder/CharlotteAmiot_5_30112020/blob/master/images/planTests-2.png)
