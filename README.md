@@ -24,19 +24,19 @@ Part of the OpenClassRooms program (project 5). Create the front-end part of an 
 
 With this project I acquired javascript's basis, such as :
  
- -Class
- -Objects
- -Loops
- -Events
- -Request to a server
- -Promise / Callback (asynchronise)
- - ...
+- Class
+- Objects
+- Loops
+- Events
+- Request to a server
+- Promise / Callback (asynchronise)
+- ...
 
 And also to start using some others tools:
--the use of URL to transfert datas from a page to another
--Local Storage
--Form Validation (Regex and constraint API)
--Bootstrap (to simplify CSS  and build the website structure faster)
+- the use of URL to transfert datas from a page to another
+- Local Storage
+- Form Validation (Regex and constraint API)
+- Bootstrap (to simplify CSS  and build the website structure faster)
 
 ### Plan test ###
 
