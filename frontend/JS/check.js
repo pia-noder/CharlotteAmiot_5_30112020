@@ -1,10 +1,19 @@
-let orderIdValue = localStorage.getItem("confirmationNb");
-let orderId = document.getElementById('orderId');
-orderId.innerHTML = orderIdValue;
+function collectUrlDatas(){
+   let urlInfo = location.search.substring(1).split("&");
+    console.log(urlInfo); 
 
-let totalPriceValue = localStorage.getItem('TotalPrice');
-let totalPrice = document.getElementById('totalPrice');
-totalPrice.innerHTML = totalPriceValue + "€";
+    ////Afficher le prix total de la commande////
+    let valuePrice = urlInfo[0].split('=');
+    let price = parseInt(valuePrice[1]);
+    let totalPrice = document.getElementById('totalPrice');
+    totalPrice.innerHTML = price + "€";
+
+    ////Afficher le numéro de la commande////
+    let valueNbOrder = urlInfo[1].split('=');
+    let nbOrder = valueNbOrder[1];
+    orderId.innerHTML = nbOrder;
+}
+collectUrlDatas();
 
 let idCustomer = localStorage.getItem('tableau');
 let  customer = JSON.parse(idCustomer);

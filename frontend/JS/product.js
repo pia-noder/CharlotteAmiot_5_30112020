@@ -96,7 +96,8 @@ function showProductFromId(data){
         addToCart(optionSelected);
         alert("Produit ajouté au panier");
     });
-}  
+} 
+
 /////////////Envoyer dans le local Storage////////////
 function addToCart(optionSelected){
     let cartContent = collectLocalS(keyCartContent);

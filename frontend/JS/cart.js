@@ -190,7 +190,7 @@ form.inputFirstName.addEventListener('change',function(){
 });
 
 const validLetters = function(inputName){
-  let regExp = /^[A-Za-z]+$/;
+  let regExp = /^[A-zÀ-ú]+(([',. -][A-zÀ-ú ])?[A-zÀ-ú]*)*$/;
 
   let testName = regExp.test(inputName.value);
   let small = inputName.nextElementSibling;
@@ -288,11 +288,12 @@ function order(e){
         let InfoSend = new infoSend(contact, products);
 
         ajaxPost('http://localhost:3000/api/teddies/order', InfoSend).then(function(response){
-              localStorage.setItem('confirmationNb',response.orderId);
+              //localStorage.setItem('confirmationNb',response.orderId);
               let TotalPriceElt = document.getElementById('totalOrder');
               TotalPrice = TotalPriceElt.innerText;
-              localStorage.setItem('TotalPrice',TotalPrice);
-              window.location = "check.html";
+              //localStorage.setItem('TotalPrice',TotalPrice);
+              //window.location = "check.html";
+              window.location = "check.html?price="+TotalPrice + "&nbOrder=" +response.orderId;
           }).catch(function(error){
             console.log(error);
             alert("Problème lors de la requête au serveur");

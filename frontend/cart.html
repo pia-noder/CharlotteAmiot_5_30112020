@@ -81,6 +81,8 @@
             
             <div>Total  de la commande : <span id="totalOrder"></span>€<br/>
             <small>TVA incluse</small> </div>
+
+            </div>
         </section>
     </div>
     </section>
@@ -90,24 +92,24 @@
             <h5 class="card-title mt-5 text-center main-heading">Valider la commande</h5>
             <form class="form-order" id="orderForm">
                 <div class="form-label">
-                    <input type="text" name="inputLastName" id="inputLastName" class="form-control" placeholder="LastName" required autofocus>
+                    <input type="text" name="inputLastName" id="inputLastName" class="form-control" placeholder="ex : Dupont" required maxlength="25" autofocus>
                     <small></small>
                 </div>
                 <div class="form-label">
-                    <input type="text" name="inputFirstName" id="inputFirstName" class="form-control" placeholder="FirstName" required autofocus>
+                    <input type="text" name="inputFirstName" id="inputFirstName" class="form-control" placeholder="ex : Sarah" required maxlength="25"  autofocus>
                     <small></small>
                 </div>
                 <div class="form-label">
-                    <input type="text" name="inputAddress" id="inputAddress" class="form-control" placeholder="Adresse" required autofocus>
+                    <input type="text" name="inputAddress" id="inputAddress" class="form-control" placeholder="ex : 2 rue de la tour" required maxlength="75" autofocus>
                     <small></small>
                 </div>
                 <div class="form-label">
-                    <input type="text" name="inputCity" id="inputCity" class="form-control" placeholder="Ville" required autofocus>
+                    <input type="text" name="inputCity" id="inputCity" class="form-control" placeholder="ex : Paris" required maxlength="25" autofocus>
                     <small></small>
                 </div>
 
                 <div class="form-label">
-                    <input type="email" name="inputEmail"  id="inputEmail" class="form-control" placeholder="Email address" required>
+                    <input type="email" name="inputEmail"  id="inputEmail" class="form-control" placeholder="ex : sarah.dupont@gmail.com" maxlength="75" required>
                     <small></small>
                 </div>
                 <button class="btn btn-lg btn-primary btn-block text-uppercase" id="btnOrder" type="submit">Commander</button>
